@@ -1,63 +1,80 @@
-
-//семинар 2
 /*
 Задание 1
-Создайте функцию которая возводит переданное число в куб, необходимо вывести в консоль результат 2^3 степени + 3 ^ 3 степени
-*/
+Необходимо с помощью цикла for вывести следующие 11 строк в консоль:
+0 – это ноль
+1 – нечетное число
+2 – четное число
+3 – нечетное число
+…
+10 – четное число
 
-let num = prompt("Введите число: ");
-let getCube = count => {
-    if (count !== "") {
-        console.log(`${count}^3 = ${count**3}`);
-    } else {
-        console.log('Поле пустое');
-    }
-}
-getCube(num);
-
-/*
 Задание 2
-Пользователь вводит с клавиатуры число, если ввёл текст, необходимо вывести что значение задано неверно
-Создать фукнцию, которая высчитывает 13% от данного числа и выводит в консоль текст "Размер заработной платы за вычетом налогов равен значение"
+Дан массив [1, 2, 3, 4, 5, 6, 7]
+Сделайте из этого массива следующий [1, 2, 3, 6, 7]
+
+Задание 3
+Используя Math.random() вам необходимо генерировать цифры от 0 до 9, и создать массив состоящий из 5 таких элементов
+1. Рассчитать сумму элементов этого массива
+2. Найти минимальное число
+3. Найти есть ли в этом массиве число 3
+
+*Необязательное задание. *
+Необходимо вывести горку в консоль (используя цикл for), как показано на рисунке, только у вашей горки должно быть 20 рядов, а не 5:
+
+x
+xx
+xxx
+xxxx
+xxxxx
  */
-let count = prompt("Введите число: ");
-let getSalaryAfterTaxes = num => {
-    if (!isNaN(+num)) {
-        console.log(`Размер заработной платы за вычетом налогов равен ${num - (num / 100 * 13)}`);
-    } else {
-        console.log("Значение задано неверно");
+
+// Задание 1
+let createArr = () => {
+    let arr = [];
+    for (let i = 0; i < 11; i++) {
+        arr.push(i);
+    }
+    return arr;
+}
+let outputConsoleArr = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 0) console.log(`${arr[i]} - это ноль`);
+        else if (arr[i]%2 !== 0) console.log(`${arr[i]} - нечетное число`);
+        else console.log(`${arr[i]} - четное число`);
     }
 }
-getSalaryAfterTaxes(count);
+// outputConsoleArr(createArr());
 
+// Задание 2
+let array = [1, 2, 3, 4, 5, 6, 7];
+let array2 = array.filter(el => el !== 4 && el !== 5);
+// console.log(array);
+// console.log(array2);
 
-/*
-Задание 3
-Пользователь с клавиатуры вводит 3 числа, необходимо создать функцию, которая определяет максимальное значение среди этих чисел
- */
-let arrStr = prompt("Введите 3 числа через пробел").split(" ");
-let getMaxNumber = (array) => {
-    console.log(`Максимальное число = ${Math.max.apply(null, array)}`)
+// Задание 3
+let createArrRandomEl = (length) => {
+    let arr = [];
+    for (let i = 0; i < length-1; i++) {
+        arr.push(Math.floor(Math.random() * 9))
+    }
+    return arr
 }
-getMaxNumber(arrStr);
-
-/*
-Необходимо реализовать четыре функции, каждая функция должна принимать по два числа и выполнять одну из операций (каждая функция выполняет одну из них):
-1. Сложение
-2. Разность
-3. Умножение
-4. Деление
-Необходимо сделать так, чтобы функция вернула число, например выражение console.log(sum(2, 6)); должно вывести число 8 в консоль (sum - функция сложения в данном примере, ваши названия функций могут отличаться). Округлять значения, которые возвращают функции не нужно, однако, обратите внимание на разность, функция должна вычесть из большего числа меньшее, либо вернуть 0, если числа равны. Функциям всегда передаются корректные числа, проверки на NaN, Infinity делать не нужно.
- */
-let nums = prompt("вводите через пробел пример '1 + 2'").split(" ");
-let getSum = (a, b) => a + b;
-let getSubtraction = (a, b) => a - b;
-let getMultiplication = (a, b) => a * b;
-let getDivision = (a, b) => a / b;
-let checkCondition = (arr) => {
-    if (arr[1] === "+") {return getSum(arr[0], arr[2]);}
-    else if (arr[1] === "-") {return getSubtraction(arr[0], arr[2]);}
-    else if (arr[1] === "*") {return getMultiplication(arr[0], arr[2]);}
-    else if (arr[1] === "/") {return getDivision(arr[0], arr[2]);}
+let arrRandomEl = createArrRandomEl(5);
+// console.log(arrRandomEl)
+let checkArr = (arr) => {
+    console.log(`минимальный = ${Math.min.apply(null, arr)}`)
+    if (arr.indexOf(3) !== -1) {
+        console.log(`Элемент 3 есть в массиве`);
+    } else console.log(`Элемент 3 нет в массиве`)
 }
-console.log(`${nums[0]} ${nums[1]} ${nums[2]} = ${checkCondition(nums)}`);
+// checkArr(arrRandomEl);
+
+// Задание 4
+let outputConsoleMountain = () => {
+    let arr = []
+    for (let i = 0; i < 20; i++) {
+        console.log(arr.join(''))
+        arr.push('x');
+    }
+}
+outputConsoleMountain();
