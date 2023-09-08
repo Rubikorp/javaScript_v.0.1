@@ -1,57 +1,80 @@
-/* Задание 1 */
-/* Создать переменные num1, num2 которые пользователь вводит с клавиатуры
-Проверьте, что переменная num1 равна или меньше 1, а переменная num2 больше или равна 3 */
+/*
+Задание 1
+Необходимо с помощью цикла for вывести следующие 11 строк в консоль:
+0 – это ноль
+1 – нечетное число
+2 – четное число
+3 – нечетное число
+…
+10 – четное число
 
-let num1 = prompt("Введите число 1: ");
-let num2 = prompt("Введите число 2: ");
+Задание 2
+Дан массив [1, 2, 3, 4, 5, 6, 7]
+Сделайте из этого массива следующий [1, 2, 3, 6, 7]
 
-let numberComparison = (num1, num2) => {
-    if (num1 !== "" && num2 !== "") {
-        num1 = +num1; num2 = +num2;
-        num1 <= 1 ? console.log(`${num1} меньше или равно 1`) : console.log(`${num1} больше 1`);
-        num2 >= 3 ? console.log(`${num1} больше или равно 3`) : console.log(`${num2} меньше 3`);
-    } else {
-        console.log("Число не введено")
+Задание 3
+Используя Math.random() вам необходимо генерировать цифры от 0 до 9, и создать массив состоящий из 5 таких элементов
+1. Рассчитать сумму элементов этого массива
+2. Найти минимальное число
+3. Найти есть ли в этом массиве число 3
+
+*Необязательное задание. *
+Необходимо вывести горку в консоль (используя цикл for), как показано на рисунке, только у вашей горки должно быть 20 рядов, а не 5:
+
+x
+xx
+xxx
+xxxx
+xxxxx
+ */
+
+// Задание 1
+let createArr = () => {
+    let arr = [];
+    for (let i = 0; i < 11; i++) {
+        arr.push(i);
     }
-
+    return arr;
 }
-numberComparison(num1, num2);
-
-/* Задание 2 */
-/* Перепишите код к тернарному оператору
-
-let test = true;
-if (test === true) {
-console.log('+++');
-} else {
-console.log('---');
-} */
-
-let test = true;
-test ? console.log('+++') : console.log('---');
-
-/* Задание 3 */
-/*В переменной day лежит какое-то число из интервала от 1 до 31. Определите в какую декаду месяца попадает это число (в первую, вторую или третью).*/
-
-let day = prompt("Введите день от 1 до 31: ");
-let decadeMonth = (day) => {
-    day = +day;
-    let decade = [
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-        [21, 23, 24, 25, 26, 27, 28, 29, 30, 31],
-    ]
-    if (day >= 1 && day <= 31 && day !== "") {
-        for (let index = 0; index < decade.length; index++) {
-            for (let value of decade[index]) {
-                if (day === value) {
-                    console.log(`${day} принадлежит к ${index+1} декаде`);
-                    break;
-                }
-            }
-        }
-    } else {
-        console.log(`Некорректный ввод`)
+let outputConsoleArr = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 0) console.log(`${arr[i]} - это ноль`);
+        else if (arr[i]%2 !== 0) console.log(`${arr[i]} - нечетное число`);
+        else console.log(`${arr[i]} - четное число`);
     }
 }
-decadeMonth(day);
+// outputConsoleArr(createArr());
+
+// Задание 2
+let array = [1, 2, 3, 4, 5, 6, 7];
+let array2 = array.filter(el => el !== 4 && el !== 5);
+// console.log(array);
+// console.log(array2);
+
+// Задание 3
+let createArrRandomEl = (length) => {
+    let arr = [];
+    for (let i = 0; i < length-1; i++) {
+        arr.push(Math.floor(Math.random() * 9))
+    }
+    return arr
+}
+let arrRandomEl = createArrRandomEl(5);
+// console.log(arrRandomEl)
+let checkArr = (arr) => {
+    console.log(`минимальный = ${Math.min.apply(null, arr)}`)
+    if (arr.indexOf(3) !== -1) {
+        console.log(`Элемент 3 есть в массиве`);
+    } else console.log(`Элемент 3 нет в массиве`)
+}
+// checkArr(arrRandomEl);
+
+// Задание 4
+let outputConsoleMountain = () => {
+    let arr = []
+    for (let i = 0; i < 20; i++) {
+        console.log(arr.join(''))
+        arr.push('x');
+    }
+}
+outputConsoleMountain();
