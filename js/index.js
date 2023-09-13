@@ -1,80 +1,259 @@
 /*
 Задание 1
-Необходимо с помощью цикла for вывести следующие 11 строк в консоль:
-0 – это ноль
-1 – нечетное число
-2 – четное число
-3 – нечетное число
-…
-10 – четное число
+Дан объект numbers. Необходимо в консоль вывести все значения больше или равные 3.
+
+const numbers = {
+keyin1: 1,
+keyin2: 2,
+keyin3: 3,
+keyin4: 4,
+keyin5: 5,
+keyin6: 6,
+keyin7: 7,
+}
+
+
 
 Задание 2
-Дан массив [1, 2, 3, 4, 5, 6, 7]
-Сделайте из этого массива следующий [1, 2, 3, 6, 7]
+Необходимо из объекта, который лежит в константе post вывести значения, к которым приписан комментарий, в консоль.
+
+const post = {
+author: "John", // вывести этот текст
+postId: 23,
+comments: [
+{
+userId: 10,
+userName: "Alex",
+text: "lorem ipsum",
+rating: {
+likes: 10,
+dislikes: 2, // вывести это число
+},
+},
+{
+userId: 5, // вывести это число
+userName: "Jane",
+text: "lorem ipsum 2", // вывести этот текст
+rating: {
+likes: 3,
+dislikes: 1,
+},
+},
+],
+};
+
+
 
 Задание 3
-Используя Math.random() вам необходимо генерировать цифры от 0 до 9, и создать массив состоящий из 5 таких элементов
-1. Рассчитать сумму элементов этого массива
-2. Найти минимальное число
-3. Найти есть ли в этом массиве число 3
+Дан массив products, необходимо цену каждого продукта уменьшить на 15% используя метод forEach.
 
-*Необязательное задание. *
-Необходимо вывести горку в консоль (используя цикл for), как показано на рисунке, только у вашей горки должно быть 20 рядов, а не 5:
+const products = [
+{
+id: 3,
+price: 200,
+},
+{
+id: 4,
+price: 900,
+},
+{
+id: 1,
+price: 1000,
+},
+];
 
-x
-xx
-xxx
-xxxx
-xxxxx
+
+
+Задание 4
+1. Необходимо вывести в консоль массив продуктов в котором есть хоть одна фотография используя метод filter. Исходные данные - массив products.
+2. Необходимо отсортировать массив products используя метод sort по цене, начиная с самой маленькой, заканчивая самой большой ценой, после чего вывести отсортированный массив в консоль.
+
+```
+const products = [
+{
+id: 3,
+price: 127,
+photos: [
+"1.jpg",
+"2.jpg",
+],
+},
+{
+id: 5,
+price: 499,
+photos: [],
+},
+{
+id: 10,
+price: 26,
+photos: [
+"3.jpg",
+],
+},
+{
+id: 8,
+price: 78,
+},
+];
+
+[]()
+[]()
+**Задание 5**
+Дано 2 массива
+const en = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const ru = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
+```
+
+
+Вам необходимо объединить 2 этих массива, чтобы значения первого массива были ключами, а значения второго массива — значениями.
  */
 
-// Задание 1
-let createArr = () => {
-    let arr = [];
-    for (let i = 0; i < 11; i++) {
-        arr.push(i);
-    }
-    return arr;
+// Задание1
+const numbers = {
+    keyin1: 1,
+    keyin2: 2,
+    keyin3: 3,
+    keyin4: 4,
+    keyin5: 5,
+    keyin6: 6,
+    keyin7: 7,
 }
-let outputConsoleArr = (arr) => {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === 0) console.log(`${arr[i]} - это ноль`);
-        else if (arr[i]%2 !== 0) console.log(`${arr[i]} - нечетное число`);
-        else console.log(`${arr[i]} - четное число`);
+let printValues = (obj) => {
+    for (const objKey in obj) {
+        if (obj[objKey] >= 3) {
+            console.log(obj[objKey]);
+        }
     }
 }
-// outputConsoleArr(createArr());
+// printValues(numbers);
+
+//-------------------------------------------
 
 // Задание 2
-let array = [1, 2, 3, 4, 5, 6, 7];
-let array2 = array.filter(el => el !== 4 && el !== 5);
-// console.log(array);
-// console.log(array2);
+
+const post = {
+    author: "John", // вывести этот текст
+    postId: 23,
+    comments: [
+        {
+            userId: 10,
+            userName: "Alex",
+            text: "lorem ipsum",
+            rating: {
+                likes: 10,
+                dislikes: 2, // вывести это число
+            },
+        },
+        {
+            userId: 5, // вывести это число
+            userName: "Jane",
+            text: "lorem ipsum 2", // вывести этот текст
+            rating: {
+                likes: 3,
+                dislikes: 1,
+            },
+        },
+    ],
+};
+
+let printComment = (obj) => {
+    console.log(`Author: ${obj.author}`)
+    let comments = obj.comments;
+    for (let i = 0; i < comments.length; i++) {
+        console.log(`userId: ${comments[i].userId}
+        comment: ${comments[i].text}
+        dislikes: ${comments[i].rating.dislikes}`);
+    }
+}
+
+// printComment(post);
 
 // Задание 3
-let createArrRandomEl = (length) => {
-    let arr = [];
-    for (let i = 0; i < length-1; i++) {
-        arr.push(Math.floor(Math.random() * 9))
-    }
-    return arr
+
+const products = [
+    {
+        id: 3,
+        price: 200,
+    },
+    {
+        id: 4,
+        price: 900,
+    },
+    {
+        id: 1,
+        price: 1000,
+    },
+];
+
+let salePrice = (arr) => {
+    arr.forEach((el) => el.price = el.price - (el.price * 0.15));
 }
-let arrRandomEl = createArrRandomEl(5);
-// console.log(arrRandomEl)
-let checkArr = (arr) => {
-    console.log(`минимальный = ${Math.min.apply(null, arr)}`)
-    if (arr.indexOf(3) !== -1) {
-        console.log(`Элемент 3 есть в массиве`);
-    } else console.log(`Элемент 3 нет в массиве`)
-}
-// checkArr(arrRandomEl);
+salePrice(products);
+// console.log(products)
+
+//-----------------------------------------------
 
 // Задание 4
-let outputConsoleMountain = () => {
-    let arr = []
-    for (let i = 0; i < 20; i++) {
-        console.log(arr.join(''))
-        arr.push('x');
+const products2 = [
+    {
+        id: 3,
+        price: 127,
+        photos: [
+            "1.jpg",
+            "2.jpg",
+        ],
+    },
+    {
+        id: 5,
+        price: 499,
+        photos: [],
+    },
+    {
+        id: 10,
+        price: 26,
+        photos: [
+            "3.jpg",
+        ],
+    },
+    {
+        id: 8,
+        price: 78,
+    },
+];
+
+const filterPhotos = products2.filter((el) => {
+    if (el.photos !== undefined) {
+        return true
+    } else {
+        return false;
     }
+})
+// console.log(filterPhotos);
+
+const sortPrice = products2.sort(function (el1, el2) {
+    if (el1.price > el2.price) {
+        return 1;
+    }
+    if (el1.price < el2.price) {
+        return -1;
+    }
+    return 0;
+})
+
+// console.log(sortPrice);
+
+// Задание 5
+
+const en = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const ru = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
+
+const createCollection = (arr1, arr2) => {
+  let coll = [];
+    for (let i = 0; i < arr2.length; i++) {
+        coll.push({en:arr1[i], ru:arr2[i]});
+    }
+    return coll;
 }
-outputConsoleMountain();
+
+const coll = createCollection(en, ru);
+console.log(coll)
