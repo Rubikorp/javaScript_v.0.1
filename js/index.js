@@ -1,57 +1,113 @@
-/* Задание 1 */
-/* Создать переменные num1, num2 которые пользователь вводит с клавиатуры
-Проверьте, что переменная num1 равна или меньше 1, а переменная num2 больше или равна 3 */
+/*
+Задание 1: "Управление персоналом компании"
 
-let num1 = prompt("Введите число 1: ");
-let num2 = prompt("Введите число 2: ");
+Реализуйте класс Employee (сотрудник), который имеет следующие свойства и методы:
+Свойство name (имя) - строка, имя сотрудника.
+Метод displayInfo() - выводит информацию о сотруднике (имя) в консоль.
 
-let numberComparison = (num1, num2) => {
-    if (num1 !== "" && num2 !== "") {
-        num1 = +num1; num2 = +num2;
-        num1 <= 1 ? console.log(`${num1} меньше или равно 1`) : console.log(`${num1} больше 1`);
-        num2 >= 3 ? console.log(`${num1} больше или равно 3`) : console.log(`${num2} меньше 3`);
-    } else {
-        console.log("Число не введено")
+Реализуйте класс Manager (менеджер), который наследует класс Employee и имеет дополнительное свойство и метод:
+Свойство department (отдел) - строка, отдел, в котором работает менеджер.
+Метод displayInfo() - переопределяет метод displayInfo() родительского класса и выводит информацию о менеджере (имя и отдел).
+
+// Пример использования классов
+const employee = new Employee("John Smith");
+employee.displayInfo(); // "Name: John Smith"
+
+const manager = new Manager("Jane Doe", "Sales");
+manager.displayInfo(); // "Name: John Doe, Department: Sales"
+ */
+
+class Employee {
+    constructor(name) {
+        this.name = name;
     }
 
-}
-numberComparison(num1, num2);
-
-/* Задание 2 */
-/* Перепишите код к тернарному оператору
-
-let test = true;
-if (test === true) {
-console.log('+++');
-} else {
-console.log('---');
-} */
-
-let test = true;
-test ? console.log('+++') : console.log('---');
-
-/* Задание 3 */
-/*В переменной day лежит какое-то число из интервала от 1 до 31. Определите в какую декаду месяца попадает это число (в первую, вторую или третью).*/
-
-let day = prompt("Введите день от 1 до 31: ");
-let decadeMonth = (day) => {
-    day = +day;
-    let decade = [
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-        [21, 23, 24, 25, 26, 27, 28, 29, 30, 31],
-    ]
-    if (day >= 1 && day <= 31 && day !== "") {
-        for (let index = 0; index < decade.length; index++) {
-            for (let value of decade[index]) {
-                if (day === value) {
-                    console.log(`${day} принадлежит к ${index+1} декаде`);
-                    break;
-                }
-            }
-        }
-    } else {
-        console.log(`Некорректный ввод`)
+    displayInfo() {
+        console.log(`Name: ${this.name}`)
     }
 }
-decadeMonth(day);
+
+class Manager extends Employee {
+    constructor(name, department) {
+        super(name);
+        this.department = department;
+    }
+
+    displayInfo() {
+        console.log(`Name: ${this.name}, Department: ${this.department}`);
+    }
+}
+
+// const employee = new Employee("John Smith");
+// employee.displayInfo(); // "Name: John Smith"
+//
+// const manager = new Manager("Jane Doe", "Sales");
+// manager.displayInfo(); // "Name: John Doe, Department: Sales"
+
+
+/*
+Задание 2: "Управление списком заказов"
+
+Реализуйте класс Product (товар), который имеет следующие свойства и методы:
+Свойство name - название товара.
+Свойство price - цена товара.
+Свойство quantity - количество товара.
+
+Реализуйте класс Order (заказ), который имеет следующие свойства и методы:
+Свойство id (номер заказа) - число, уникальный номер заказа.
+Свойство products (продукты) - массив, содержащий список продуктов в заказе.
+Метод addProduct(product) - принимает объект класса Product и добавляет его в список продуктов заказа.
+Метод getTotalPrice() - возвращает общую стоимость заказа, основанную на ценах продуктов.
+
+// Пример использования:
+const order = new Order(12345);
+
+const product1 = new Product("Phone", 500, 2);
+order.addProduct(product1);
+
+const product2 = new Product("Headphones", 100, 1);
+order.addProduct(product2);
+
+console.log(order.getTotalPrice()); // Вывод: 1100
+ */
+
+class Product {
+    constructor(name, price, quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+}
+
+class Order {
+    products = []
+
+    constructor(id) {
+        this.id = id;
+    }
+
+    addProduct(product) {
+        this.products.push(product)
+    }
+
+    getTotalPrice() {
+        let totalPrice = 0;
+        this.products.forEach((product) => {
+            totalPrice += product.price;
+        })
+        console.log(`Total price: ${totalPrice}`)
+    }
+}
+
+const order = new Order(12345);
+
+const product1 = new Product("Phone", 500, 2);
+order.addProduct(product1);
+
+const product2 = new Product("Headphones", 100, 1);
+order.addProduct(product2);
+
+const product3 = new Product("Phone", 500, 2);
+order.addProduct(product3);
+
+console.log(order); // Вывод: 1100
