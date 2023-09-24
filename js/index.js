@@ -23,7 +23,7 @@ class Employee {
     }
 
     displayInfo() {
-        console.log(`Name: ${this.name}`)
+        console.log(`Name: ${this.name}`);
     }
 }
 
@@ -80,7 +80,7 @@ class Product {
 }
 
 class Order {
-    products = []
+    products = [];
 
     constructor(id) {
         this.id = id;
@@ -91,11 +91,14 @@ class Order {
     }
 
     getTotalPrice() {
-        let totalPrice = 0;
-        this.products.forEach((product) => {
-            totalPrice += product.price;
-        })
-        console.log(`Total price: ${totalPrice}`)
+        const totalPrice = this.products.reduce((previousValue, currentValue) => {
+            if (previousValue.quantity === undefined) {
+                return previousValue + (currentValue.price * currentValue.quantity);
+            } else {
+                return (previousValue.price * previousValue.quantity) + (currentValue.price * currentValue.quantity);
+            }
+        });
+        return totalPrice;
     }
 }
 
@@ -107,7 +110,4 @@ order.addProduct(product1);
 const product2 = new Product("Headphones", 100, 1);
 order.addProduct(product2);
 
-const product3 = new Product("Phone", 500, 2);
-order.addProduct(product3);
-
-console.log(order); // Вывод: 1100
+console.log(order.getTotalPrice()); // Вывод: 1100
