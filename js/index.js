@@ -49,8 +49,8 @@ const url = 'https://reqres.in/api/users';
 const saveUserData = async (url, user) => {
     try {
         const response = await fetch(url, {
-            method: "POST", // или 'PUT'
-            body: JSON.stringify(user), // данные могут быть 'строкой' или {объектом}!,
+            method: "POST",
+            body: JSON.stringify(user),
         });
         const json = await response.json();
         console.log("Успех:", JSON.stringify(json));
