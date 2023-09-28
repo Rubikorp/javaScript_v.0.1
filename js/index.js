@@ -1,57 +1,62 @@
-/* Задание 1 */
-/* Создать переменные num1, num2 которые пользователь вводит с клавиатуры
-Проверьте, что переменная num1 равна или меньше 1, а переменная num2 больше или равна 3 */
+/*
+Реализуйте функцию getUserData, которая принимает идентификатор пользователя (ID) в качестве аргумента и использует fetch для получения данных о пользователе с заданным ID с удаленного сервера. Функция должна возвращать промис, который разрешается с данными о пользователе в виде объекта. Если пользователь с указанным ID не найден, промис должен быть отклонен с соответствующим сообщением об ошибке.
 
-let num1 = prompt("Введите число 1: ");
-let num2 = prompt("Введите число 2: ");
+Подсказка, с последовательностью действий:
+getUserData использует fetch для получения данных о пользователе с удаленного сервера. Если запрос успешен (с кодом 200), функция извлекает данные из ответа с помощью response.json() и возвращает объект с данными о пользователе. Если запрос неуспешен, функция отклоняет промис с сообщением об ошибке.
 
-let numberComparison = (num1, num2) => {
-    if (num1 !== "" && num2 !== "") {
-        num1 = +num1; num2 = +num2;
-        num1 <= 1 ? console.log(`${num1} меньше или равно 1`) : console.log(`${num1} больше 1`);
-        num2 >= 3 ? console.log(`${num1} больше или равно 3`) : console.log(`${num2} меньше 3`);
-    } else {
-        console.log("Число не введено")
+Работа должна быть выполнена с API: https://reqres.in/
+ */
+const getUserData = async (id) => {
+    await fetch(`https://reqres.in/api/users/${id}`)
+        .then((resp) => resp.json())
+        .then((dataUser) => {
+            console.log(dataUser.data)
+            return dataUser.data;
+        })
+        .catch(er => console.log(er))
+};
+
+/*
+Задание 2. Отправка данных на сервер.
+
+Реализуйте функцию saveUserData, которая принимает объект с данными о пользователе в качестве аргумента и использует fetch для отправки этих данных на удаленный сервер для сохранения. Функция должна возвращать промис, который разрешается, если данные успешно отправлены, или отклоняется в случае ошибки.
+
+*Подсказка *
+
+// Пример использования функции
+const user = {
+  "name": "John Doe",
+  "job": "unknown"
+};
+
+saveUserData(user)
+  .then(() => {
+    console.log('User data saved successfully');
+  })
+  .catch(error => {
+    console.log(error.message);
+  });
+saveUserData использует fetch для отправки данных о пользователе на удаленный сервер для сохранения. Она отправляет POST-запрос на URL-адрес /api/users с указанием типа содержимого application/json и сериализует объект с данными о пользователе в JSON-строку с помощью JSON.stringify(). Если запрос успешен (с кодом 201), функция разрешает промис. Если запрос неуспешен, функция отклоняет промис с сообщением об ошибке.
+
+Работа должна быть выполнена с API: https://reqres.in/
+ */
+const user = {
+    "name": "John Doe",
+    "job": "unknown"
+};
+const url = 'https://reqres.in/api/users';
+
+const saveUserData = async (url, user) => {
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(user),
+        });
+        const json = await response.json();
+        console.log("Успех:", JSON.stringify(json));
+    } catch (error) {
+        console.error("Ошибка:", error);
     }
-
 }
-numberComparison(num1, num2);
 
-/* Задание 2 */
-/* Перепишите код к тернарному оператору
-
-let test = true;
-if (test === true) {
-console.log('+++');
-} else {
-console.log('---');
-} */
-
-let test = true;
-test ? console.log('+++') : console.log('---');
-
-/* Задание 3 */
-/*В переменной day лежит какое-то число из интервала от 1 до 31. Определите в какую декаду месяца попадает это число (в первую, вторую или третью).*/
-
-let day = prompt("Введите день от 1 до 31: ");
-let decadeMonth = (day) => {
-    day = +day;
-    let decade = [
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-        [21, 23, 24, 25, 26, 27, 28, 29, 30, 31],
-    ]
-    if (day >= 1 && day <= 31 && day !== "") {
-        for (let index = 0; index < decade.length; index++) {
-            for (let value of decade[index]) {
-                if (day === value) {
-                    console.log(`${day} принадлежит к ${index+1} декаде`);
-                    break;
-                }
-            }
-        }
-    } else {
-        console.log(`Некорректный ввод`)
-    }
-}
-decadeMonth(day);
+saveUserData(url, user);
